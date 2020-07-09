@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Quick and dirty tool to find repositories that still make use of a
+# "master" branch. Helps with tracking down the ones that need
+# updating/improving.
+
+for repo in $(find . -name .git)
+do
+    (
+        cd "$(dirname $repo)"
+
+        if git branch | grep master > /dev/null 2>&1
+        then
+            echo "$(dirname $repo)"
+        fi
+    )
+done
+
+### git-archaic ends here
